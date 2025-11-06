@@ -708,6 +708,13 @@ typedef struct Segment {
 } segment;
 //static int segSize = sizeof(Segment);
 
+// Wordclock helper structure
+struct WordMapping {
+    const char *word;
+    uint8_t start;
+    uint8_t end;
+};
+
 // main "strip" class
 class WS2812FX {  // 96 bytes
   typedef uint16_t (*mode_ptr)(); // pointer to mode function
@@ -941,14 +948,6 @@ class WS2812FX {  // 96 bytes
 
     std::vector<segment> _segments;
     friend class Segment;
-
-    // Wordclock helper functions
-    static const struct WordMapping
-    {
-        const char *word;
-        uint8_t start;
-        uint8_t end;
-    } WORDS_TO_LEDS[];
 
   private:
     volatile bool _suspend;

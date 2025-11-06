@@ -100,7 +100,7 @@ String getMinutesWord(int minute)
         return "FIVE";
 }
 
-WS2812FX::WordMapping const WS2812FX::WORDS_TO_LEDS[] = {
+const WordMapping WORDS_TO_LEDS[] = {
     {"HOUR_1", 13, 15},
     {"HOUR_2", 36, 38},
     {"HOUR_3", 16, 20},
@@ -129,7 +129,7 @@ WS2812FX::WordMapping const WS2812FX::WORDS_TO_LEDS[] = {
 /*
  * Wordclock
  */
-uint16_t WS2812FX::mode_wordClock(void) {
+uint16_t mode_wordClock(void) {
   // Get the current hour and minute
   int minutes = minute(localTime);
   int hours = hour(localTime);
@@ -168,7 +168,7 @@ uint16_t WS2812FX::mode_wordClock(void) {
   }
 
   // Display IT IS
-  for (const auto& wordMapping : WS2812FX::WORDS_TO_LEDS) {
+  for (const auto& wordMapping : WORDS_TO_LEDS) {
     if (String("IS").equalsIgnoreCase(wordMapping.word) ||
         String("IT").equalsIgnoreCase(wordMapping.word)) {
       for (int i = wordMapping.start; i <= wordMapping.end; i++) {
@@ -177,7 +177,7 @@ uint16_t WS2812FX::mode_wordClock(void) {
     }
   }
   // Display minutes
-  for (const auto& wordMapping : WS2812FX::WORDS_TO_LEDS) {
+  for (const auto& wordMapping : WORDS_TO_LEDS) {
     if (minuteWord.equalsIgnoreCase(wordMapping.word)) {
       for (int i = wordMapping.start; i <= wordMapping.end; i++) {
         strip.setPixelColor(i, SEGCOLOR(1));
@@ -185,7 +185,7 @@ uint16_t WS2812FX::mode_wordClock(void) {
     }
   }
   // Display "MINUTES"
-  for (const auto& wordMapping : WS2812FX::WORDS_TO_LEDS) {
+  for (const auto& wordMapping : WORDS_TO_LEDS) {
     if (String("MINUTES").equalsIgnoreCase(wordMapping.word)) {
       for (int i = wordMapping.start; i <= wordMapping.end; i++) {
         if (minuteWord != "OCLOCK"){
@@ -196,7 +196,7 @@ uint16_t WS2812FX::mode_wordClock(void) {
   }
 
   // Display "PAST" or "TO"
-  for (const auto& wordMapping : WS2812FX::WORDS_TO_LEDS) {
+  for (const auto& wordMapping : WORDS_TO_LEDS) {
     if (pastTo.equalsIgnoreCase(wordMapping.word)) {
       for (int i = wordMapping.start; i <= wordMapping.end; i++) {
         if (minuteWord != "OCLOCK"){
@@ -207,7 +207,7 @@ uint16_t WS2812FX::mode_wordClock(void) {
   }
 
   // Display hour
-  for (const auto& wordMapping : WS2812FX::WORDS_TO_LEDS) {
+  for (const auto& wordMapping : WORDS_TO_LEDS) {
     if (hourWord.equalsIgnoreCase(wordMapping.word)) {
       for (int i = wordMapping.start; i <= wordMapping.end; i++) {
         strip.setPixelColor(i, SEGCOLOR(2));
