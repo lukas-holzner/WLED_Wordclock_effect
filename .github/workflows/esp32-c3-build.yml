@@ -1,0 +1,55 @@
+name: Build ESP32-C3 Firmware
+
+on:
+  push:
+    branches:
+      - '*'
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  build-esp32c3:
+    name: Build ESP32-C3 Firmware
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Set up Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20.x'
+        cache: 'npm'
+    
+    - name: Install Node dependencies
+      run: npm ci
+    
+    - name: Cache PlatformIO
+      uses: actions/cache@v4
+      with:
+        path: |
+          ~/.platformio/.cache
+          ~/.buildcache
+        key: pio-${{ runner.os }}-esp32c3dev-${{ hashFiles('platformio.ini') }}
+        restore-keys: |
+          pio-${{ runner.os }}-esp32c3dev-
+    
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.12'
+        cache: 'pip'
+    
+    - name: Install PlatformIO
+      run: pip install -r requirements.txt
+    
+    - name: Build ESP32-C3 Firmware
+      run: pio run -e esp32c3dev
+    
+    - name: Upload ESP32-C3 Firmware
+      uses: actions/upload-artifact@v4
+      with:
+        name: WLED-ESP32-C3-Wordclock
+        path: |
+          build_output/release/WLED_*_esp32c3dev.bin
+          build_output/release/WLED_*_esp32c3dev.bin.gz
