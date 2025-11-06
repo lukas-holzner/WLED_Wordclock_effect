@@ -154,6 +154,10 @@ uint16_t mode_wordClock(void) {
   if (minutes > 32) {
     pastTo = "TO";
     hours++;
+    // Wrap hours back to 1-12 range
+    if (hours > 12) {
+      hours = 1;
+    }
   } else {
     pastTo = "PAST";
   }
