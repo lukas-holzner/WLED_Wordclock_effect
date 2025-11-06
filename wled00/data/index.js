@@ -1571,7 +1571,7 @@ function setEffectParameters(idx)
 	// set html slider items on/off
 	d.querySelectorAll("#sliders .sliderwrap").forEach((slider, i)=>{
 		let text = slider.getAttribute("title");
-		if ((!controlDefined && i<((idx<128)?2:nSliders)) || (slOnOff.length>i && slOnOff[i]!="")) {
+		if ((!controlDefined && i<((idx<128)?2:5)) || (slOnOff.length>i && slOnOff[i]!="")) {
 			if (slOnOff.length>i && slOnOff[i]!="!") text = slOnOff[i];
 			// restore overwritten default tooltips
 			if (i<2 && slOnOff[i]==="!") text = i==0 ? "Effect speed" : "Effect intensity";
