@@ -319,8 +319,9 @@
 #define FX_MODE_WAVESINS               184
 #define FX_MODE_ROCKTAVES              185
 #define FX_MODE_2DAKEMI                186
+#define FX_MODE_WORDCLOCK              187
 
-#define MODE_COUNT                     187
+#define MODE_COUNT                     188
 
 typedef enum mapping1D2D {
   M12_Pixels = 0,
@@ -706,6 +707,13 @@ typedef struct Segment {
   #endif
 } segment;
 //static int segSize = sizeof(Segment);
+
+// Wordclock helper structure
+struct WordMapping {
+    const char *word;
+    uint8_t start;
+    uint8_t end;
+};
 
 // main "strip" class
 class WS2812FX {  // 96 bytes
